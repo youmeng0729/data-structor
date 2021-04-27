@@ -39,7 +39,8 @@ public class InsertSort {
                 insertIndex--;
             }
             // 推出while循环，找到了插入位置
-            arr[insertIndex + 1] = insertVal;
+            if (insertIndex != i - 1)
+                arr[insertIndex + 1] = insertVal;
         }
 //        System.out.println(Arrays.toString(arr));
 

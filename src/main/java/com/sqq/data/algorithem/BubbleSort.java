@@ -68,7 +68,7 @@ public class BubbleSort {
             }
         }
 //        System.out.println(ChronoUnit.NANOS.between(t1, LocalTime.now()));
-        System.out.println("Run time is: " + Duration.between(t1, LocalTime.now()).getSeconds());
+        System.out.println("Bubble Sort Run time is: " + Duration.between(t1, LocalTime.now()).getSeconds() + " s");
     }
 
 

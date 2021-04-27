@@ -4,7 +4,6 @@ import com.sqq.data.util.RandomArr;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.Arrays;
 
 /**
  * - 第一次从arr[0]~ar[n-1]中选择最小值，与arr[0]交换；
@@ -16,7 +15,7 @@ import java.util.Arrays;
  */
 public class SelectSort {
     public static void main(String[] args) {
-        int[] arr = {101, 34, 119, 1};
+//        int[] arr = {101, 34, 119, 1};
         sort(RandomArr.generate(80000, 80000));
     }
 
@@ -26,6 +25,7 @@ public class SelectSort {
         int min;
 
         for (int i = 0; i < arr.length - 1; i++) {
+            // 每次排序，只需要找到最小的值，然后和这个位置的值进行交换即可
             minIndex = i;
             min = arr[i];
             for (int j = i; j < arr.length; j++) {

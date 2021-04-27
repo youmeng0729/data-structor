@@ -4,7 +4,6 @@ import com.sqq.data.util.RandomArr;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 /**
@@ -22,7 +21,6 @@ public class BubbleSort {
     /**
      * 最原始的方法
      *
-     * @param arr
      */
     public static void sort1(int[] arr) {
         int temp;
@@ -43,8 +41,6 @@ public class BubbleSort {
 
     /**
      * 优化1：如果某次排序没有发生排序，则说明现在的排序已经是好的，后面的没必要再进行
-     *
-     * @param arr
      */
     public static void sort2(int[] arr) {
         LocalTime t1 = LocalTime.now();

@@ -15,7 +15,7 @@ import java.time.LocalTime;
 public class InsertSort {
     public static void main(String[] args) {
 //        int[] arr = {101, 34, 119, 1};
-        int[] arr = RandomArr.generate(80000, 80000);
+        int[] arr = RandomArr.generate(800000, 800000);
         sort(arr);
     }
 

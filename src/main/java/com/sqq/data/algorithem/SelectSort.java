@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class SelectSort {
     public static void main(String[] args) {
 //        int[] arr = {101, 34, 119, 1};
-        sort(RandomArr.generate(80000, 80000));
+        sort(RandomArr.generate(800000, 800000));
     }
 
     public static void sort(int[] arr) {

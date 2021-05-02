@@ -1,4 +1,4 @@
-package com.sqq.data.algorithem;
+package com.sqq.data.algorithem.sort;
 
 import com.sqq.data.util.RandomArr;
 

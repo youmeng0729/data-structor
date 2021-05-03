@@ -65,15 +65,13 @@ public class BinarySearch {
             // 左边
             int temp = mid - 1;
             while (temp >= 0 && arr[temp] == value) {
-                resIndexList.add(temp);
-                temp -= 1;
+                resIndexList.add(temp--);
             }
             resIndexList.add(mid);
             // 右边
             temp = mid + 1;
             while (temp <= arr.length - 1 && arr[temp] == value) {
-                resIndexList.add(temp);
-                temp += 1;
+                resIndexList.add(temp++);
             }
             return resIndexList;
         }

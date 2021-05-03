@@ -1,5 +1,8 @@
 package com.sqq.data.algorithem.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 思路分析：
  * 1. 首先去欸的那个该数组的中间的下标
@@ -19,6 +22,9 @@ public class BinarySearch {
         int[] arr = {1, 8, 10, 89, 1000, 1234};
         int val = search(arr, 0, arr.length - 1, 8);
         System.out.println("--->" + val);
+        int[] arr2 = {1, 8, 10, 89, 1000, 1234, 1234};
+        List<Integer> list = search2(arr2, 0, arr2.length - 1, 1234);
+        System.out.println("--->" + list);
 
     }
 
@@ -44,5 +50,32 @@ public class BinarySearch {
         }
     }
 
-
+    public static List<Integer> search2(int[] arr, int left, int right, int value) {
+        if (left > right) return new ArrayList<>();
+        int mid = (left + right) / 2;
+        int midVal = arr[mid];
+        if (value > midVal) {
+            // 向右递归
+            return search2(arr, mid + 1, right, value);
+        } else if (value < midVal) {
+            //向左递归
+            return search2(arr, left, mid - 1, value);
+        } else {
+            List<Integer> resIndexList = new ArrayList<>();
+            // 左边
+            int temp = mid - 1;
+            while (temp >= 0 && arr[temp] == value) {
+                resIndexList.add(temp);
+                temp -= 1;
+            }
+            resIndexList.add(mid);
+            // 右边
+            temp = mid + 1;
+            while (temp <= arr.length - 1 && arr[temp] == value) {
+                resIndexList.add(temp);
+                temp += 1;
+            }
+            return resIndexList;
+        }
+    }
 }

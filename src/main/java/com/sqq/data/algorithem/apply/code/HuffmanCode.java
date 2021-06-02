@@ -1,15 +1,94 @@
 package com.sqq.data.algorithem.apply.code;
 
 
+import java.io.*;
 import java.util.*;
 
 public class HuffmanCode {
     public static void main(String[] args) {
-        String str = "i like like like java do you like a java";
+        /*String str = "i like like like java do you like a java";
         byte[] bytes = huffmanZip(str);
-        System.out.println(Arrays.toString(bytes));
+        // System.out.println(Arrays.toString(bytes));
         byte[] decode = decode(huffmanCodes, bytes);
-        System.out.println(new String(decode));
+        // System.out.println(new String(decode));*/
+        /*String srcFile = "C:\\Users\\youme\\Desktop\\图片1.jpg";
+        String dstFIle = "C:\\Users\\youme\\Desktop\\dst.zip";
+        zipFile(srcFile, dstFIle);*/
+        String zipFile = "C:\\Users\\youme\\Desktop\\dst.zip";
+        String dstFile = "C:\\Users\\youme\\Desktop\\图片2.jpg";
+        unZipFile(zipFile, dstFile);
+    }
+
+    /**
+     * 解压文件
+     *
+     * @param zipFile
+     * @param dstFile
+     */
+    public static void unZipFile(String zipFile, String dstFile) {
+        // 定义文件输入流
+        InputStream is = null;
+        ObjectInputStream ois = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(zipFile);
+            ois = new ObjectInputStream(is);
+            byte[] huffmanBytes = (byte[]) ois.readObject();
+            Map<Byte, String> codes = (Map<Byte, String>) ois.readObject();
+            byte[] bytes = decode(codes, huffmanBytes);
+            os = new FileOutputStream(dstFile);
+            os.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                os.close();
+                ois.close();
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    /**
+     * 压缩文件
+     *
+     * @param srcFile
+     * @param dstFile
+     */
+    public static void zipFile(String srcFile, String dstFile) {
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        ObjectOutputStream oos = null;
+        try {
+            is = new FileInputStream(srcFile);
+            byte[] b = new byte[is.available()];
+            is.read(b);
+
+            // 文件对应的编码表
+            byte[] huffmanZip = huffmanZip(b);
+            os = new FileOutputStream(dstFile);
+            // 创建一个和文件输出六关联的ObjectOutputStream
+            oos = new ObjectOutputStream(os);
+            // 以对象流的方式写入 赫夫曼编码，是为了以后恢复文件时使用
+            oos.writeObject(huffmanZip);
+            oos.writeObject(huffmanCodes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                oos.close();
+                os.close();
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     /**
@@ -75,22 +154,20 @@ public class HuffmanCode {
 
     private static byte[] huffmanZip(String str) {
         byte[] contentBytes = str.getBytes();
-        System.out.println(contentBytes.length);
+        // System.out.println(contentBytes.length);
         return huffmanZip(contentBytes);
     }
 
     private static byte[] huffmanZip(byte[] bytes) {
         List<Node> nodes = getNodes(bytes);
-        System.out.println(nodes);
+        // System.out.println(nodes);
 
         Node huffmanTree = createHuffmanTree(nodes);
         preOrder(huffmanTree);
 
-        System.out.println("-------------------------------------");
+        // System.out.println("-------------------------------------");
         getCodes(huffmanTree);
-        System.out.println(huffmanCodes);
 
-        System.out.println("***************************************");
         return zip(bytes, huffmanCodes);
     }
 
@@ -105,8 +182,8 @@ public class HuffmanCode {
         for (byte b : bytes) {
             sBuilder.append(huffmanCodes.get(b));
         }
-        System.out.println(sBuilder);
-        System.out.println(sBuilder.length());
+        // System.out.println(sBuilder);
+        // System.out.println(sBuilder.length());
 
         int len = (sBuilder.length() + 7) / 8;
         int index = 0;
@@ -228,7 +305,7 @@ class Node implements Comparable<Node> {
     }
 
     public void preOrder() {
-        System.out.println(this);
+        // System.out.println(this);
         if (this.left != null) {
             this.left.preOrder();
         }

@@ -127,9 +127,10 @@ class SingleLinkedList {
         System.out.println("Can't find this Hero");
     }
 
-    public int getLength(){
+    public int getLength() {
         return getLength(head);
     }
+
     // get linked list size
     public int getLength(HeroNode heroNode) {
         if (head.next == null) {
@@ -172,8 +173,7 @@ class HeroNode {
         this.nickname = nickname;
     }
 
-    public HeroNode() {
-    }
+    public HeroNode() {}
 
     @Override
     public String toString() {

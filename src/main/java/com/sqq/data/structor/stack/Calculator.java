@@ -1,5 +1,8 @@
 package com.sqq.data.structor.stack;
 
+/**
+ * Infix expression
+ */
 public class Calculator {
     public static void main(String[] args) {
         String expression = "300+2*6-2";

@@ -10,22 +10,101 @@ import java.util.Stack;
  */
 public class PolandNotationCalculator {
     public static void main(String[] args) {
-        String suffixExpression = "3 4 + 5 * 6 -";
-        List<String> listString = getListString(suffixExpression);
-        System.out.println(listString);
-        int calculator = calculator(listString);
-        System.out.println(calculator);
+//        String suffixExpression = "3 4 + 5 * 6 -";
+//        List<String> listString = getSuffixExpressionList(suffixExpression);
+//        System.out.println(listString);
+//        int calculator = calculator(listString);
+//        System.out.println(calculator);
+        String suffixExpression = "1+((2+3)*4)-5";
+        List<String> list = toInfixExpressionList(suffixExpression);
+        System.out.println(list);
+        List<String> suffix = transferInfixToSuffix(list);
+        System.out.println(suffix);
+        int res = calculatorUseSuffix(suffix);
+        System.out.println(res);
     }
 
-    public static List<String> getListString(String suffixExpression) {
+    /**
+     * transfer a infix expression to suffix expression list
+     *
+     * @param infixExpression
+     * @return
+     */
+    public static List<String> transferInfixToSuffix(List<String> infixExpression) {
+        Stack<String> s1 = new Stack<>();
+        List<String> s2 = new ArrayList<>();
+        // Traversal infixExpression
+        for (String ele : infixExpression) {
+            if (ele.matches("\\d+")) {
+                s2.add(ele);
+            } else if (ele.equals("(")) {
+                s1.push(ele);
+            } else if (ele.equals(")")) {
+                while (!s1.peek().equals("(")) {
+                    s2.add(s1.pop());
+                }
+                s1.pop();
+            } else {
+                // priority problem\
+                // TODO
+                while (s1.size() != 0 && (Operation.getValue(s1.peek()) >= Operation.getValue(ele))) {
+                    s2.add((s1.pop()));
+                }
+                s1.push(ele);
+            }
+        }
+        while (s1.size() != 0) {
+            s2.add(s1.pop());
+        }
+        return s2;
+    }
+
+
+    /**
+     * without any char to split the expression
+     *
+     * @param s
+     * @return
+     */
+    public static List<String> toInfixExpressionList(String s) {
+        List<String> ls = new ArrayList<>();
+        int i = 0;
+        String str;
+        char c;
+        do {
+            c = s.charAt(i);
+            if (((c = s.charAt(i)) < 48) || (c = s.charAt(i)) > 57) {
+                ls.add("" + c);
+                i++;
+            } else {
+                // if c is a number, need to consider it is a multi-number;
+                str = "";
+                while (i < s.length() && ((c = s.charAt(i)) >= 48) && ((c = s.charAt(i)) <= 57)) {
+                    str += c;
+                    i++;
+                }
+                ls.add(str);
+            }
+        } while (i < s.length());
+
+        return ls;
+    }
+
+
+    /**
+     * transfer suffix expression to a list; using space to split
+     *
+     * @param suffixExpression
+     * @return suffix expression list
+     */
+    public static List<String> getSuffixExpressionList(String suffixExpression) {
         String[] strings = suffixExpression.split(" ");
         List<String> list = new ArrayList<>();
         Collections.addAll(list, strings);
-
         return list;
     }
 
-    public static int calculator(List<String> expList) {
+    public static int calculatorUseSuffix(List<String> expList) {
         Stack<String> stack = new Stack<>();
         for (String ele : expList) {
             if (ele.matches("\\d+")) {
@@ -57,3 +136,24 @@ public class PolandNotationCalculator {
     }
 }
 
+class Operation {
+    private static int ADD = 1;
+    private static int SUB = 1;
+    private static int MUL = 2;
+    private static int DIV = 2;
+
+    public static int getValue(String operation) {
+        switch (operation) {
+            case "+":
+                return ADD;
+            case "-":
+                return SUB;
+            case "*":
+                return MUL;
+            case "/":
+                return DIV;
+            default:
+                return 0;
+        }
+    }
+}

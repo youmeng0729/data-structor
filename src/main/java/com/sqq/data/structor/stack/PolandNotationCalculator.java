@@ -26,9 +26,6 @@ public class PolandNotationCalculator {
 
     /**
      * transfer a infix expression to suffix expression list
-     *
-     * @param infixExpression
-     * @return
      */
     public static List<String> transferInfixToSuffix(List<String> infixExpression) {
         Stack<String> s1 = new Stack<>();
@@ -62,28 +59,24 @@ public class PolandNotationCalculator {
 
     /**
      * without any char to split the expression
-     *
-     * @param s
-     * @return
      */
     public static List<String> toInfixExpressionList(String s) {
         List<String> ls = new ArrayList<>();
         int i = 0;
         String str;
         char c;
+        StringBuilder builder = new StringBuilder();
         do {
-            c = s.charAt(i);
             if (((c = s.charAt(i)) < 48) || (c = s.charAt(i)) > 57) {
                 ls.add("" + c);
                 i++;
             } else {
                 // if c is a number, need to consider it is a multi-number;
-                str = "";
-                while (i < s.length() && ((c = s.charAt(i)) >= 48) && ((c = s.charAt(i)) <= 57)) {
-                    str += c;
+                while (i  < s.length() && (s.charAt(i) >= 48) && ((c = s.charAt(i)) <= 57)) {
+                    builder.append(c);
                     i++;
                 }
-                ls.add(str);
+                ls.add(builder.toString());
             }
         } while (i < s.length());
 
@@ -94,7 +87,6 @@ public class PolandNotationCalculator {
     /**
      * transfer suffix expression to a list; using space to split
      *
-     * @param suffixExpression
      * @return suffix expression list
      */
     public static List<String> getSuffixExpressionList(String suffixExpression) {
@@ -137,10 +129,10 @@ public class PolandNotationCalculator {
 }
 
 class Operation {
-    private static int ADD = 1;
-    private static int SUB = 1;
-    private static int MUL = 2;
-    private static int DIV = 2;
+    private static final int ADD = 1;
+    private static final int SUB = 1;
+    private static final int MUL = 2;
+    private static final int DIV = 2;
 
     public static int getValue(String operation) {
         switch (operation) {
